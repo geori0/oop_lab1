@@ -18,16 +18,18 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_library(${CMAKE_PROJECT_NAME}_lib src/time.cpp)
-add_executable(${CMAKE_PROJECT_NAME} lab1.cpp)
+add_library(${CMAKE_PROJECT_NAME}_lib src/time_convert.cpp)
+target_include_directories(${CMAKE_PROJECT_NAME}_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+add_executable(${CMAKE_PROJECT_NAME} src/lab1.cpp)
+
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_PROJECT_NAME}_lib)
 
 enable_testing()
 
-add_executable(tests test/tests01.cpp)
+add_executable(tests test/tests.cpp)
 target_link_libraries(tests ${CMAKE_PROJECT_NAME}_lib gtest_main)
 
+
 add_test(NAME MyProjectTests COMMAND tests)
-
-
